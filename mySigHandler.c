@@ -8,10 +8,17 @@
 #define DELAY 3
 #define SIGUSR1 10
 #define SIGUSR2 12
+#define SIGINT 2
 
 int user_signal_count = 0;
 
 // TODO fix error handling according to scheme.xw
+
+static void ctrl_c_handler()
+{
+	printf("SIGUSR1 was handled %d times. Exiting now.", user_signal_count);
+	exit(0);
+}
 
 static void alarm_handler()
 {
@@ -28,7 +35,7 @@ static void alarm_handler()
 
 static void usr_handler()
 {
-	printf("SIGUSR1 REVIEVED %d\n", user_signal_count);
+	printf("SIGUSR1 handled and counted!\n", user_signal_count);
 	user_signal_count++;
 	return;
 }
@@ -50,6 +57,12 @@ int main(int argc, char *argv[])
 	usr_action.sa_flags = SA_SIGINFO;
 	usr_action.sa_sigaction = usr_handler;
 	sigaction(SIGUSR1, &usr_action, NULL);
+
+	struct sigaction exit_action;
+	memset(&exit_action, 0, sizeof(exit_action));
+	exit_action.sa_flags = SA_SIGINFO;
+	exit_action.sa_sigaction = ctrl_c_handler;
+	sigaction(SIGINT, &exit_action, NULL);
 
 	while (1)
 	{
