@@ -11,7 +11,7 @@ static void alarm_handler()
 	printf("handler called\n");
 	// handler function
 	// print the pid (process id) and current time (format linux date command)
-	time_t now;
+	const time_t now;
 	time(&now);
 	printf("%d %s", getpid(), ctime(time(&now)));
 	printf("reset alarm\n");
