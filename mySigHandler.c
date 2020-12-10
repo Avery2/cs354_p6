@@ -22,6 +22,7 @@ int main()
 	alarm(DELAY); // setup alarm to go off 3 seconds later, sending SIGALRM signal to the program
 	// register signal handler to handle the SIGALRM (14)
 	struct sigaction sa;
+	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = alarm_handler;
 	sigaction(SIGALRM, &sa, NULL);
 	while (1)
