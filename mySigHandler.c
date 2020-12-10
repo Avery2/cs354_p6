@@ -15,7 +15,7 @@ static void alarm_handler()
 	return;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	printf("Pid and time print every 3 seconds.\nEnter Ctrl-C to end the program.");
 
