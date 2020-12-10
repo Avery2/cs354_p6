@@ -2,6 +2,12 @@
 
 #define SIGALRM 14
 
+alarm_handler()
+{
+	print(sys_getpid() + sys_time());
+	alarm(3);
+}
+
 main()
 {
 	alarm(3); // setup alarm to go off 3 seconds later, sending SIGALRM signal to the program
@@ -14,10 +20,4 @@ main()
 	while (1)
 	{
 	}
-}
-
-alarm_handler()
-{
-	print(sys_getpid() + sys_time());
-	alarm(3);
 }
