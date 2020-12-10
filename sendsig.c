@@ -3,8 +3,15 @@
 
 int main(int argc, char *argv[])
 {
-    for (int i = 0; i < argc; i++)
+    if (argc != 2)
     {
-        printf("%d", *argv[i]);
+        printf("Usage: <signal type> <pid>");
+    }
+    else
+    {
+        for (int i = 0; i < argc; i++)
+        {
+            printf("%d", *argv[i]);
+        }
     }
 }
