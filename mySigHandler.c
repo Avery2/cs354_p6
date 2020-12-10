@@ -1,10 +1,11 @@
 #include <unistd.h>
+#include <stdio.h>
 
 #define SIGALRM 14
 
 void alarm_handler()
 {
-	print(sys_getpid() + sys_time());
+	printf(getpid() + date());
 	alarm(3);
 }
 
