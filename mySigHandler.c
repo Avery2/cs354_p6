@@ -14,6 +14,7 @@ void alarm_handler()
 
 int main()
 {
+	printf("START");
 	alarm(3); // setup alarm to go off 3 seconds later, sending SIGALRM signal to the program
 	// register signal handler to handle the SIGALRM (14)
 	// handler function
