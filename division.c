@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-    print(atoi("f"));
+    printf(atoi("f"));
     while (1)
     {
         // non-numeric input defaults to 0
