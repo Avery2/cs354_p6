@@ -23,6 +23,7 @@ int main()
 	// register signal handler to handle the SIGALRM (14)
 	struct sigaction sa;
 	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
 	sa.sa_sigaction = alarm_handler;
 	sigaction(SIGALRM, &sa, NULL);
 	while (1)
