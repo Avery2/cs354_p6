@@ -18,12 +18,7 @@ int main(int argc, char *argv[])
     {
         printf("Usage: <signal type> <pid>\n");
     }
-    for (int i = 0; i < argc; i++)
-    {
-        printf("%s\n", argv[i]);
-    }
 
-    // check error atoi
     pid_t pid = atoi(argv[2]);
 
     if (strcmp(argv[1], "-u") == 0)
