@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 #define SIGUSR1 10
 #define SIGINT 2
@@ -15,7 +16,6 @@ int main(int argc, char *argv[])
     }
     if (!(strcmp(argv[1], "-u") == 0 || strcmp(argv[1], "-i") == 0))
     {
-        // TODO do I keep this? Or remove extra testing
         printf("Usage: <signal type> <pid>\n");
     }
     for (int i = 0; i < argc; i++)
@@ -28,10 +28,18 @@ int main(int argc, char *argv[])
 
     if (strcmp(argv[1], "-u") == 0)
     {
-        kill(pid, SIGUSR1);
+        if (kill(pid, SIGUSR1) != 0)
+        {
+            printf("Error with errno %d was caught. Exiting now.\n", errno);
+            exit(0);
+        }
     }
     if (strcmp(argv[1], "-i") == 0)
     {
-        kill(pid, SIGINT);
+        if (kill(pid, SIGINT) != 0)
+        {
+            printf("Error with errno %d was caught. Exiting now.\n", errno);
+            exit(0);
+        }
     }
 }

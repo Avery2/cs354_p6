@@ -4,6 +4,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #define SIGALRM 14
 #define DELAY 3
@@ -23,13 +24,21 @@ static void ctrl_c_handler()
 
 static void alarm_handler()
 {
-	// printf("handler called\n");
-	// handler function
-	// print the pid (process id) and current time (format linux date command)
 	time_t now;
-	time(&now);
-	printf("PID: %d CURRENT TIME: %s", getpid(), ctime(&now));
-	// printf("reset alarm\n");
+	if (time(&now) == (time_t)-1)
+	{
+		printf("Error with errno %d was caught. Exiting now.\n", errno);
+		exit(0);
+	}
+	char *time_val = ctime(&now);
+	if (time_val == NULL)
+	{
+		printf("Error with errno %d was caught. Exiting now.\n", errno);
+		exit(0);
+	}
+	// print the pid (process id) and current time (format linux date command)
+	printf("PID: %d CURRENT TIME: %s", getpid(), time_val);
+	// reset alarm
 	alarm(DELAY);
 	return;
 }
@@ -51,19 +60,31 @@ int main(int argc, char *argv[])
 	memset(&alarm_action, 0, sizeof(alarm_action));
 	alarm_action.sa_flags = SA_SIGINFO;
 	alarm_action.sa_sigaction = alarm_handler;
-	sigaction(SIGALRM, &alarm_action, NULL);
+	if (sigaction(SIGALRM, &alarm_action, NULL) != 0)
+	{
+		printf("Error with errno %d was caught. Exiting now.\n", errno);
+		exit(0);
+	}
 
 	struct sigaction usr_action;
 	memset(&usr_action, 0, sizeof(usr_action));
 	usr_action.sa_flags = SA_SIGINFO;
 	usr_action.sa_sigaction = usr_handler;
-	sigaction(SIGUSR1, &usr_action, NULL);
+	if (sigaction(SIGUSR1, &usr_action, NULL) != 0)
+	{
+		printf("Error with errno %d was caught. Exiting now.\n", errno);
+		exit(0);
+	}
 
 	struct sigaction exit_action;
 	memset(&exit_action, 0, sizeof(exit_action));
 	exit_action.sa_flags = SA_SIGINFO;
 	exit_action.sa_sigaction = ctrl_c_handler;
-	sigaction(SIGINT, &exit_action, NULL);
+	if (sigaction(SIGINT, &exit_action, NULL) != 0)
+	{
+		printf("Error with errno %d was caught. Exiting now.\n", errno);
+		exit(0);
+	}
 
 	while (1)
 	{

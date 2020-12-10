@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <string.h>
+#include <errno.h>
 
 #define SIGFPE 8
 #define SIGINT 2
+#define BUFFER 100
 
 int div_count = 0;
 
@@ -26,23 +28,39 @@ int main(int argc, char *argv[])
     memset(&div_zero_action, 0, sizeof(div_zero_action));
     div_zero_action.sa_flags = SA_SIGINFO;
     div_zero_action.sa_sigaction = div_zero_hanlder;
-    sigaction(SIGFPE, &div_zero_action, NULL);
+    if (sigaction(SIGFPE, &div_zero_action, NULL) != 0)
+    {
+        printf("Error with errno %d was caught. Exiting now.\n", errno);
+        exit(0);
+    }
 
     struct sigaction interrupt_action;
     memset(&interrupt_action, 0, sizeof(interrupt_action));
     interrupt_action.sa_flags = SA_SIGINFO;
     interrupt_action.sa_sigaction = interrupt_handler;
-    sigaction(SIGINT, &interrupt_action, NULL);
+    if (sigaction(SIGINT, &interrupt_action, NULL) != 0)
+    {
+        printf("Error with errno %d was caught. Exiting now.\n", errno);
+        exit(0);
+    }
 
     while (1)
     {
         // non-numeric input defaults to 0
-        char input1[100];
-        char input2[100];
+        char input1[BUFFER];
+        char input2[BUFFER];
         printf("Enter first integer: ");
-        fgets(input1, 100, stdin);
+        if (fgets(input1, BUFFER, stdin) == NULL)
+        {
+            printf("Error with errno %d was caught. Exiting now.\n", errno);
+            exit(0);
+        }
         printf("Enter second integer: ");
-        fgets(input2, 100, stdin);
+        if (fgets(input2, BUFFER, stdin) == NULL)
+        {
+            printf("Error with errno %d was caught. Exiting now.\n", errno);
+            exit(0);
+        }
         int n1 = atoi(input1);
         int n2 = atoi(input2);
         printf("%d / %d is %d with a remainder of %d\n", n1, n2, n1 / n2, n1 % n2);
