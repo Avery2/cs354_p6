@@ -21,7 +21,7 @@ int main()
 	// print the pid (process id) and current time (format linux date command)
 
 	signal(SIGALRM, alarm_handler);
-	// while (1)
-	// {
-	// }
+	while (1)
+	{
+	}
 }
