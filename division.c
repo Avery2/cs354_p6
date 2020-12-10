@@ -10,7 +10,7 @@ int div_count = 0;
 
 static void interrupt_handler()
 {
-    printf("Total number of operations completed successfully: %d\nThe program will be terminated.\n", div_count);
+    printf("\nTotal number of operations completed successfully: %d\nThe program will be terminated.\n", div_count);
     exit(0);
 }
 
