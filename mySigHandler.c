@@ -7,7 +7,7 @@
 
 void alarm_handler()
 {
-	printf("%d %d", getpid(), time(NULL));
+	printf("%d %ld", getpid(), time(NULL));
 	alarm(3);
 }
 
