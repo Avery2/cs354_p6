@@ -2,13 +2,13 @@
 
 #define SIGALRM 14
 
-alarm_handler()
+void alarm_handler()
 {
 	print(sys_getpid() + sys_time());
 	alarm(3);
 }
 
-main()
+int main()
 {
 	alarm(3); // setup alarm to go off 3 seconds later, sending SIGALRM signal to the program
 	// register signal handler to handle the SIGALRM (14)
