@@ -17,7 +17,7 @@ int user_signal_count = 0;
 
 static void ctrl_c_handler()
 {
-	printf("SIGUSR1 was handled %d times. Exiting now.", user_signal_count);
+	printf("SIGUSR1 was handled %d times. Exiting now.\n", user_signal_count);
 	exit(0);
 }
 
@@ -28,7 +28,7 @@ static void alarm_handler()
 	// print the pid (process id) and current time (format linux date command)
 	time_t now;
 	time(&now);
-	printf("PID: %d CURRENT TIME: %s", getpid(), ctime(&now));
+	printf("PID: %d CURRENT TIME: %s\n", getpid(), ctime(&now));
 	// printf("reset alarm\n");
 	alarm(DELAY);
 	return;
