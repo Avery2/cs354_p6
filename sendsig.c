@@ -5,13 +5,13 @@ int main(int argc, char *argv[])
 {
     if (argc != 2)
     {
-        printf("Usage: <signal type> <pid>");
+        printf("Usage: <signal type> <pid>\n");
     }
     else
     {
         for (int i = 0; i < argc; i++)
         {
-            printf("%d", *argv[i]);
+            printf("%d\n", *argv[i]);
         }
     }
 }
