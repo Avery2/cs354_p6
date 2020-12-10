@@ -9,6 +9,7 @@ void alarm_handler()
 {
 	printf("%d %ld", getpid(), time(NULL));
 	alarm(3);
+	return;
 }
 
 int main()
@@ -19,7 +20,6 @@ int main()
 	// print the pid (process id) and current time (format linux date command)
 
 	signal(SIGALRM, alarm_handler);
-
 	while (1)
 	{
 	}
