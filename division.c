@@ -4,6 +4,7 @@
 #include <string.h>
 
 #define SIGFPE 8
+#define SIGINT 2
 
 int div_count = 0;
 
@@ -23,13 +24,13 @@ int main(int argc, char *argv[])
     memset(&div_zero_action, 0, sizeof(div_zero_action));
     div_zero_action.sa_flags = SA_SIGINFO;
     div_zero_action.sa_sigaction = div_zero_hanlder;
-    sigaction(SIGALRM, &div_zero_action, NULL);
+    sigaction(SIGFPE, &div_zero_action, NULL);
 
     struct sigaction interrupt_action;
     memset(&interrupt_action, 0, sizeof(interrupt_action));
     interrupt_action.sa_flags = SA_SIGINFO;
     interrupt_action.sa_sigaction = interrupt_handler;
-    sigaction(SIGALRM, &interrupt_action, NULL);
+    sigaction(SIGINT, &interrupt_action, NULL);
 
     while (1)
     {
