@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
+#include <time.h>
 
 #define SIGALRM 14
 
