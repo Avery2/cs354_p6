@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include <time.h>
+#include <string.h>
 
 #define SIGALRM 14
 #define DELAY 3
