@@ -11,11 +11,13 @@ int div_count = 0;
 static void interrupt_handler()
 {
     printf("Total number of operations completed successfully: %d\nThe program will be terminated.\n", div_count);
+    exit(0);
 }
 
 static void div_zero_hanlder()
 {
     printf("Error: a division by 0 operation was attempted.\nTotal number of operations completed successfully: %d\nThe program will be terminated.\n", div_count);
+    exit(0);
 }
 
 int main(int argc, char *argv[])
