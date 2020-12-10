@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
+    if (argc != 3)
     {
         printf("Usage: <signal type> <pid>\n");
     }
@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     {
         for (int i = 0; i < argc; i++)
         {
-            printf("%d\n", *argv[i]);
+            printf("%s\n", *argv[i]);
         }
     }
 }
