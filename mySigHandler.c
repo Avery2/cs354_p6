@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <time.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define SIGALRM 14
 #define DELAY 3
@@ -35,7 +36,7 @@ static void alarm_handler()
 
 static void usr_handler()
 {
-	printf("SIGUSR1 handled and counted!\n", user_signal_count);
+	printf("SIGUSR1 handled and counted!\n");
 	user_signal_count++;
 	return;
 }
