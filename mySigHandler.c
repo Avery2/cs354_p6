@@ -46,14 +46,20 @@
 
 int user_signal_count = 0;
 
-// TODO fix error handling according to scheme.xw
-
+/*
+ * Handler for SIGINT signal
+ * Prints out number of times SIGUSR1 signal was handled and exits.
+ */
 static void ctrl_c_handler()
 {
 	printf("SIGUSR1 was handled %d times. Exiting now.\n", user_signal_count);
 	exit(0);
 }
 
+/*
+ * Handler for SIGALRM signal
+ * Prints out message then resets alarm.
+ */
 static void alarm_handler()
 {
 	time_t now;
@@ -75,6 +81,10 @@ static void alarm_handler()
 	return;
 }
 
+/*
+ * Handler for SIGUSER1 signal.
+ * Prints message and updates counter.
+ */
 static void usr_handler()
 {
 	printf("SIGUSR1 handled and counted!\n");
@@ -82,6 +92,9 @@ static void usr_handler()
 	return;
 }
 
+/*
+ * Main function that sets up handlers then enters infinite loop.
+ */
 int main(int argc, char *argv[])
 {
 	printf("Pid and time print every 3 seconds.\nEnter Ctrl-C to end the program.\n");

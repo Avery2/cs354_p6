@@ -39,6 +39,10 @@
 #define SIGUSR1 10
 #define SIGINT 2
 
+/*
+ * Main function.
+ * Reads arguments and then sends a SIGINT or SIGUSR1 signal to a given process if possible.
+ */
 int main(int argc, char *argv[])
 {
     if (argc != 3)

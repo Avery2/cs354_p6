@@ -42,18 +42,31 @@
 
 int div_count = 0;
 
+/*
+ * Handler for SIGINT signal.
+ * Prints number of operations completed and exits.
+ */
 static void interrupt_handler()
 {
     printf("\nTotal number of operations completed successfully: %d\nThe program will be terminated.\n", div_count);
     exit(0);
 }
 
+/*
+ * Handler for SIGFPR signal.
+ * Prints error message and number of operations completed and exits.
+ */
 static void div_zero_hanlder()
 {
     printf("Error: a division by 0 operation was attempted.\nTotal number of operations completed successfully: %d\nThe program will be terminated.\n", div_count);
     exit(0);
 }
 
+/*
+ * Main function.
+ * Enters infinite loop that prompts user for two numbers and does operations on them.
+ * Uniquely handles SIGDPE and SIGINT signals.
+ */
 int main(int argc, char *argv[])
 {
     struct sigaction div_zero_action;
